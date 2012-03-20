@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Шаблоны для 404 и 500 ошибок в режиме отладки</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="trilandev.com ATOM Feed" />
+        
+
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="./css/ie.css"/>
+                <script src="./js/IE8.js" type="text/javascript"></script><![endif]-->
+
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="./css/ie6.css"/><![endif]-->
+
+</head>
+
+<body id="index" class="home">
+
+        <header id="banner" class="body">
+                <h1><a href=".">trilandev.com </a></h1>
+                <nav><ul>
+                
+                
+                
+                
+                
+                    <li class="active"><a href="./category/posts.html">posts</a></li>
+                
+                </ul></nav>
+        </header><!-- /#banner -->
+                
+<section id="content" class="body">    
+<article>
+        <header> <h1 class="entry-title"><a href=""
+        rel="bookmark" title="Permalink to Шаблоны для 404 и 500 ошибок в режиме отладки">Шаблоны для 404 и 500 ошибок в режиме отладки</a></h1>  </header>
+        <div class="entry-content">
+        <footer class="post-info">
+        <abbr class="published" title="2011-02-09T00:00:00">
+                ср 09 февраля 2011
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href="./author/Mike Yumatov.html">Mike Yumatov</a>
+        </address>
+        
+<p>In <a href="./category/posts.html">posts</a>. </p>
+<p>tags: <a href="./tag/django.html">django</a></p>
+
+
+</footer><!-- /.post-info -->
+        <p>Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
+собственные страницы с полезной информацией. Но иногда очень хочется
+протестировать шаблоны <tt class="docutils literal">404.html</tt> и <tt class="docutils literal">500.html</tt>. Самый простой способ это
+сделать — добавить в самый низ URLConf проекта следующие строки.</p>
+<p>Для Django 1.2.* и ниже:</p>
+<pre class="literal-block">
+if settings.DEBUG:
+    urlpatterns += patterns('django.views.generic.simple',
+        url(r'^404$', 'direct_to_template', {'template': '404.html'}),
+        url(r'^500$', 'direct_to_template', {'template': '500.html'}),
+    )
+</pre>
+<p>Для Django 1.3 и выше:</p>
+<pre class="literal-block">
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^404$', TemplateView.as_view(template_name='404.html')),
+        url(r'^500$', TemplateView.as_view(template_name='500.html')),
+    )
+</pre>
+<p>Теперь по адресам <tt class="docutils literal"><span class="pre">http://example.com/404</span></tt> и <tt class="docutils literal"><span class="pre">http://example.com/500</span></tt> можно
+смотреть, как выглядят страницы ошибок на вашем сайте :)</p>
+
+        </div><!-- /.entry-content -->
+        
+
+</article>
+</section>
+
+        <section id="extras" class="body">
+        
+        
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>, which takes great advantages of <a href="http://python.org">python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>trilandev.com</title><link href="http://trilandev.com/" rel="alternate"></link><link href="http://trilandev.com//feeds/all.atom.xml" rel="self"></link><id>http://trilandev.com/</id><updated>2012-03-03T00:00:00+04:00</updated><entry><title>Комментарии к коммитам в Git</title><link href="http://trilandev.com//git-comments.html" rel="alternate"></link><updated>2012-03-03T00:00:00+04:00</updated><author><name>Natasha Yumatova</name></author><id>http://trilandev.com//git-comments.html</id><summary type="html">&lt;p&gt;Привычка писать качественные сообщения к коммитам делает работу с системой
+контроля версий намного проще. Для объяснения того, как, на мой взгляд,
+правильно писать однострочные комментарии в Git, я подготовила &lt;a class="reference external" href="http://speakerdeck.com/u/nyumatova/p/commit-messages"&gt;презентацию&lt;/a&gt;.&lt;/p&gt;
+&lt;div style="margin: 0 150px 1.5em;"&gt;
+  &lt;script src="http://speakerdeck.com/embed/4f3fdcf620ec6204640065f0.js"&gt;&lt;/script&gt;
+&lt;/div&gt;&lt;p&gt;Начнем с обсуждения целей, которые мы преследуем при написании комментариев к
+коммитам.&lt;/p&gt;
+&lt;p&gt;Во-первых, согласитесь, что написание внятных комментариев к коммитам
+организует: приходится аккуратней формулировать задачи по проекту и затем четко
+выделять код для коммита.&lt;/p&gt;
+&lt;p&gt;Во-вторых, вспомним, что все мы так или иначе работаем в команде, а значит
+нужно попросту соблюдать правила хорошего тона в среде разработчиков - лог
+комментариев к коммитам должен быть содержательным и понятным.&lt;/p&gt;
+&lt;p&gt;В-третьих, содержательный лог коммитов помогает понять, что будет в новом
+релизе (что было сделано за последнее время). При необходимости, по логу
+коммитов можно быстро сформировать отчет о работе.&lt;/p&gt;
+&lt;p&gt;В-четвертых, понятные комментарии помогают быстрей ориентироваться в логе
+коммитов. Это может помочь, например, если вы пытаетесь найти место в коде, где
+было внесено изменение, вызвавшее ошибку.&lt;/p&gt;
+&lt;p&gt;Наверняка, каждый из нас сталкивался с ситуацией, когда вместо внятного
+комментария к коммиту, он видел в логе что-то неосмысленное или непонятное.
+Наша цель спасти свои проекты от таких комментариев.&lt;/p&gt;
+&lt;p&gt;При формулировке фразы, описывающей изменения в коде, важно помнить, что в Git
+есть ограничение на длину первой строки комментария. Оно составляет 79
+символов. Идея состоит в том, что первая строка должна лаконично описывать
+изменения в коде. Для нас важно помнить про это ограничение, ведь мы говорим
+только об однострочных комментариях.&lt;/p&gt;
+&lt;p&gt;Иногда, при формулировке комментария к коммиту возникают сложности с подбором
+нужной фразы, четко описывающей изменения в коде. В связи с этим я хочу
+предложить ряд заготовок для формулировок комментариев.&lt;/p&gt;
+&lt;p&gt;Для тех, кто пишет комментарии на английском, соглашение состоит в том, чтобы
+комментарий начинался с глагола в настоящем времени (add, fix, move, etc.).
+Окончания прошедшего времени лишь усложняют понимание и визуально мусорят текст
+комментария (плюс удлиняют его, что неприемлемо, если вспомнить об ограничении
+на 79 символов).&lt;/p&gt;
+&lt;p&gt;Для тех, кто пишет комментарии на русском, советую начинать с глагола в
+прошедшем времени. Просто потому, что так текст будет понятней.&lt;/p&gt;
+&lt;p&gt;Итак, текст комментария, как правило, представляет собой описание того, что
+было исправлено. При этом не нужно описывать, в чем именно была проблема. Если
+же код был исправлен на основе issue, то ее формулировка может стать текстом
+комментария.&lt;/p&gt;
+&lt;p&gt;В крупных, сложных проектах часто договариваются начинать текст комментария с
+имени приложения, в которое были внесены изменения. В итоге комментарии
+оформляются так - app_name: commit message.&lt;/p&gt;
+&lt;p&gt;Вот и все, что я хотела рассказать о комментариях в Git.&lt;/p&gt;
+</summary><category term="git"></category></entry><entry><title>Djangodash: послесловие</title><link href="http://trilandev.com//djangodash-afterword.html" rel="alternate"></link><updated>2011-09-07T00:00:00+04:00</updated><author><name>Dima Kukushkin</name></author><id>http://trilandev.com//djangodash-afterword.html</id><summary type="html">&lt;p&gt;Так получилось, что об участии в &lt;a class="reference external" href="http://djangodash.com"&gt;Djangodash&lt;/a&gt; мы никому особо и не рассказывали.
+Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
+времяпрепровождение, ну и силы попробовать, конечно, было интересно.&lt;/p&gt;
+&lt;p&gt;Команду планировалось назвать Losers, но что-то пошло не так, и получилось
+Loosers :)))&lt;/p&gt;
+&lt;p&gt;Перед тем, как собраться в первый раз, каждый из нас должен был подумать насчет
+идеи проекта. У меня ничего толкового не придумалось, а когда собрались, Наташа
+предложила сервис, который позволяет найти неоптимальный и устаревший код в
+Django приложениях и проектах. Так как больше ничего интересного в голову не
+пришло, мы остановились на этой идее.&lt;/p&gt;
+&lt;p&gt;До участия в Djangodash мы решили потренироваться, как нам тогда казалось, на
+простом проекте. Мы чуть-чуть порисовали, обсудили пару моментов и сели
+&amp;quot;кодить&amp;quot;. В процессе мы поняли, что сильно промахнулись, решив сесть за
+реализацию, не обговорив все мелочи. В какой-то момент мы все бросили и сели
+заново обсуждать. В итоге большую часть кода пришлось переписывать. Это был
+очень полезный урок перед конкурсом: мы начали понимать, как надо распределять
+задачи, и до какой степени нужно продумать работу сервиса, чтобы таких проблем
+не возникло.&lt;/p&gt;
+&lt;p&gt;Перед конкурсом у нас была исписана куча стикеров с задачами, и каждый
+предельно ясно представлял, в каком направлении он будет работать. Наташа была
+ответственная за дизайн и верстку, за мной были задачи celery и деплой с
+помощью chef и fabric на VDS. Мише предстояла самая сложная задача -
+анализирование кода с помощью стандартной библиотеки AST.&lt;/p&gt;
+&lt;p&gt;Выспавшись, мы встали в 4 утра, и сели за реализацию, забирая себе стикеры с
+задачами, над которыми собирались трудиться. Сразу договорились покрывать
+максимальное количество кода тестами. Часть функционала сначала просто
+прототипировали, постепенно заменяя прототипы реальным кодом.&lt;/p&gt;
+&lt;p&gt;За все время мы столкнулись с некоторыми сложностями, связанными с Celery и
+AST:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Celery попросту не запускалась, причиной была несовместимость последних
+версий некоторых пакетов (помоему django-kombu и Celery, но я могу
+ошибаться). Также, задача, в которой происходило клонирование, раздувалась
+в памяти, видимо что-то вызывало утечки. Решили мы данную проблему
+достаточно быстро, настроив Celery таким образом, чтобы она перезапускала
+воркер после каждой отработанной задачи.&lt;/li&gt;
+&lt;li&gt;С AST проблемы начались после деплоя на виртуальную машину: некоторые
+результаты анализа кода получались не правильными, хотя локально мы этого не
+наблюдали. Заметив, что на виртуальной машине Python2.6, а на наших машинах
+2.7, мы приняли решение вместо Ubuntu 10.10 использовать для деплоя Ubuntu
+11.04.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Искать причины некоторых проблем во время конкурса мы не стали, потому что
+анализ занял бы слишком много времени.&lt;/p&gt;
+&lt;p&gt;По поводу дедлайна: мы не почуствовали никакого дедлайна :). Мы спокойно
+прерывались, в перерывах смотрели &amp;quot;Во все тяжкие&amp;quot; и ели мороженку :). С субботы
+на воскресение выспались. Все запустить удалось уже около 11 вечера в
+воскресение. Спокойно легли спать, а с утра пошли на работу.&lt;/p&gt;
+&lt;p&gt;В итоге, мы допустили одну очень обидную ошибку: при клонировании репозитория,
+мы не проверяли ни язык репозитория, ни его размеры. Добрые люди не пренебрегли
+поставить ядро Linux на проверку, что подвесило Celery. Практически сразу после
+окончания конкурса мы исправили этот косяк и запустили еще одну версию сервиса
+на &lt;a class="reference external" href="http://djangolint.com"&gt;djangolint.com&lt;/a&gt;, где сейчас он и находится. Судьям были отправлены
+уведомления о необходимости зайти на сервер и перезапустить Celery.&lt;/p&gt;
+&lt;p&gt;Djangodash мне запомнился тем, что было весело. Ну и победой, конечно :D&lt;/p&gt;
+</summary><category term="django"></category><category term="djangodash"></category><category term="djangolint"></category></entry><entry><title>Шаблоны для 404 и 500 ошибок в режиме отладки</title><link href="http://trilandev.com//405-and-500-error-templates-in-debug-mode.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Mike Yumatov</name></author><id>http://trilandev.com//405-and-500-error-templates-in-debug-mode.html</id><summary type="html">&lt;p&gt;Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
+собственные страницы с полезной информацией. Но иногда очень хочется
+протестировать шаблоны &lt;tt class="docutils literal"&gt;404.html&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;500.html&lt;/tt&gt;. Самый простой способ это
+сделать — добавить в самый низ URLConf проекта следующие строки.&lt;/p&gt;
+&lt;p&gt;Для Django 1.2.* и ниже:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+if settings.DEBUG:
+    urlpatterns += patterns('django.views.generic.simple',
+        url(r'^404$', 'direct_to_template', {'template': '404.html'}),
+        url(r'^500$', 'direct_to_template', {'template': '500.html'}),
+    )
+&lt;/pre&gt;
+&lt;p&gt;Для Django 1.3 и выше:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^404$', TemplateView.as_view(template_name='404.html')),
+        url(r'^500$', TemplateView.as_view(template_name='500.html')),
+    )
+&lt;/pre&gt;
+&lt;p&gt;Теперь по адресам &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/404&lt;/span&gt;&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/500&lt;/span&gt;&lt;/tt&gt; можно
+смотреть, как выглядят страницы ошибок на вашем сайте :)&lt;/p&gt;
+</summary><category term="django"></category></entry><entry><title>Перенос данных с помощью fixtures</title><link href="http://trilandev.com//django-fixtures.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Dima Kukushkin</name></author><id>http://trilandev.com//django-fixtures.html</id><summary type="html">&lt;p&gt;Иногда возникает задача перенести данные с помощью сериализованных дампов,
+генерируемых командой &lt;tt class="docutils literal"&gt;./manage.py dumpdata&lt;/tt&gt;. При этом в дамп попадают данные
+из &lt;tt class="docutils literal"&gt;auth.models.Permission&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;contenttypes.models.ContentType&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Во время синхронизации с помощью команды &lt;tt class="docutils literal"&gt;syncdb&lt;/tt&gt;, после создания таблиц и
+прочей информации о схеме БД также происходит срабатывание хэндлеров,
+подключенных к сигналу &lt;tt class="docutils literal"&gt;post_syncdb&lt;/tt&gt;: в этот момент и создаются contenttypes,
+а также permissions. При этом первичные ключи для них генерируются в реальном
+времени в самой БД и нет возможности на это как-то повлиять. Поэтому мы не
+можем быть уверены в целостности данных при загрузке из дампа, если в проекте
+присутствуют объекты, привязанные к &lt;tt class="docutils literal"&gt;ContentType&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Решение данной проблемы пришло с релизом Django 1.2: появились так называемые
+&amp;quot;естественные ключи&amp;quot;, представляющие из себя некоторые списки значений
+атрибутов объекта, которые могут однозначно идентифицировать его в базе данных.
+Подробнее про естественные ключи можно почитать &lt;a class="reference external" href="http://djangoadvent.com/1.2/natural-keys/"&gt;здесь&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Теперь выгрузка данных заключается лишь в том, чтобы исключить из дампа
+&lt;tt class="docutils literal"&gt;ContentType&lt;/tt&gt;,  &lt;tt class="docutils literal"&gt;Permission&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;admin.LogEntry&lt;/tt&gt; (в приложении &lt;tt class="docutils literal"&gt;admin&lt;/tt&gt;
+есть модель &lt;tt class="docutils literal"&gt;LogEntry&lt;/tt&gt;, которая может содержать ссылки на типы содержимого,
+которых уже нет). Для этого выполняем команды:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+./manage.py dumpdata --natural auth.User auth.Group &amp;gt; auth.json
+./manage.py dumpdata --natural --exclude=contenttypes --exclude=auth --exclude=admin &amp;gt; data.json
+&lt;/pre&gt;
+&lt;p&gt;Сначала мы выгружаем данные из моделей &lt;tt class="docutils literal"&gt;User&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;Group&lt;/tt&gt;, чтобы в дамп не
+попали &lt;tt class="docutils literal"&gt;Permission&lt;/tt&gt;, а затем все остальные данные, исключая полностью
+приложения &lt;tt class="docutils literal"&gt;contenttypes&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;auth&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;admin&lt;/tt&gt;. Ключ &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--natural&lt;/span&gt;&lt;/tt&gt; позволяет
+использовать естественные ключи вместо первичных там, где это возможно.&lt;/p&gt;
+&lt;p&gt;Для загрузки, как и прежде, используется &lt;tt class="docutils literal"&gt;loaddata&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+./manage.py loaddata auth.json
+./manage.py loaddata data.json
+&lt;/pre&gt;
+</summary><category term="django"></category></entry><entry><title>django-taggit и русские теги</title><link href="http://trilandev.com//django-taggit-and-russian-tags.html" rel="alternate"></link><updated>2011-02-04T00:00:00+03:00</updated><author><name>Mike Yumatov</name></author><id>http://trilandev.com//django-taggit-and-russian-tags.html</id><summary type="html">&lt;p&gt;Существует замечательное приложение &lt;a class="reference external" href="https://github.com/alex/django-taggit"&gt;django-taggit&lt;/a&gt;, позволяющее быстро и просто
+добавить теги к объектам на сайте. Использовать его легче некуда:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+from django.db import models
+from taggit.managers import TaggableManager
+
+class Article(models.Model):
+    # ...
+    tags = TaggableManager()
+&lt;/pre&gt;
+&lt;p&gt;Но существует небольшая проблема. При сохранении тега приложение генерирует на
+основе его имени уникальный код, который удобно использовать в URL.
+К сожалению, по-умолчанию из этого кода удаляются все не-ASCII символы, в том
+числе и русские. В итоге вместо «мир», «труд», «май» получаем «» (пустая
+строка), «_1» и «_2», что не очень хорошо.&lt;/p&gt;
+&lt;p&gt;Первая мысль — надо форкнуть и пропатчить проект. Но после ознакомления с
+&lt;a class="reference external" href="http://django-taggit.readthedocs.org/en/latest/index.html"&gt;его документацией&lt;/a&gt; и &lt;a class="reference external" href="https://github.com/alex/django-taggit/blob/master/taggit/models.py"&gt;кодом&lt;/a&gt; оказывается, что все гораздо проще. В Django,
+начиная с версии 1.1, можно создавать так называемые прокси-модели.
+Прокси-модель — это дочерний от обычной модели класс, в котором  можно изменить
+ее поведение, используя при этом ту же самую таблицу базы данных, а значит, те
+же самые данные. &lt;a class="reference external" href="http://docs.djangoproject.com/en/1.2/topics/db/models/#proxy-models"&gt;Подробнее о прокси-моделях&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;В документации к django-taggit описывается возможность указать с помощью
+атрибута &lt;tt class="docutils literal"&gt;through&lt;/tt&gt; у &lt;tt class="docutils literal"&gt;TaggableManager&lt;/tt&gt; модель, связывающую объекты с
+тегами. В качестве такой модели можно «подсунуть» прокси-модель,
+переопределяющую метод класса &lt;tt class="docutils literal"&gt;tag_model&lt;/tt&gt;, который, в свою очередь возвращает
+другую прокси-модель, меняющую способ создания уникального кода тега.&lt;/p&gt;
+&lt;p&gt;Вот что получилось в итоге:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+from django.db import models
+
+from taggit.managers import TaggableManager
+from taggit.models import Tag, TaggedItem
+
+class ArticleTag(Tag):
+    class Meta:
+        proxy = True
+
+    def slugify(self, tag, i=None):
+        slug = tag.lower().replace(' ', '-')
+        if i is not None:
+            slug += '-%d' % i
+        return slug
+
+class ArticleTaggedItem(TaggedItem):
+    class Meta:
+        proxy = True
+
+    &amp;#64;classmethod
+    def tag_model(cls):
+        return ArticleTag
+
+class Article(models.Model):
+    # other fields
+    tags = TaggableManager(through=ArticleTaggedItem)
+&lt;/pre&gt;
+&lt;p&gt;Этот прием был найден в тестах к приложению, но почему-то не документирован.&lt;/p&gt;
+</summary><category term="django"></category><category term="django-taggit"></category></entry></feed>

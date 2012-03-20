@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Перенос данных с помощью fixtures</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="trilandev.com ATOM Feed" />
+        
+
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="./css/ie.css"/>
+                <script src="./js/IE8.js" type="text/javascript"></script><![endif]-->
+
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="./css/ie6.css"/><![endif]-->
+
+</head>
+
+<body id="index" class="home">
+
+        <header id="banner" class="body">
+                <h1><a href=".">trilandev.com </a></h1>
+                <nav><ul>
+                
+                
+                
+                
+                
+                    <li class="active"><a href="./category/posts.html">posts</a></li>
+                
+                </ul></nav>
+        </header><!-- /#banner -->
+                
+<section id="content" class="body">    
+<article>
+        <header> <h1 class="entry-title"><a href=""
+        rel="bookmark" title="Permalink to Перенос данных с помощью fixtures">Перенос данных с помощью fixtures</a></h1>  </header>
+        <div class="entry-content">
+        <footer class="post-info">
+        <abbr class="published" title="2011-02-09T00:00:00">
+                ср 09 февраля 2011
+        </abbr>
+
+        
+        <address class="vcard author">
+                By <a class="url fn" href="./author/Dima Kukushkin.html">Dima Kukushkin</a>
+        </address>
+        
+<p>In <a href="./category/posts.html">posts</a>. </p>
+<p>tags: <a href="./tag/django.html">django</a></p>
+
+
+</footer><!-- /.post-info -->
+        <p>Иногда возникает задача перенести данные с помощью сериализованных дампов,
+генерируемых командой <tt class="docutils literal">./manage.py dumpdata</tt>. При этом в дамп попадают данные
+из <tt class="docutils literal">auth.models.Permission</tt> и <tt class="docutils literal">contenttypes.models.ContentType</tt>.</p>
+<p>Во время синхронизации с помощью команды <tt class="docutils literal">syncdb</tt>, после создания таблиц и
+прочей информации о схеме БД также происходит срабатывание хэндлеров,
+подключенных к сигналу <tt class="docutils literal">post_syncdb</tt>: в этот момент и создаются contenttypes,
+а также permissions. При этом первичные ключи для них генерируются в реальном
+времени в самой БД и нет возможности на это как-то повлиять. Поэтому мы не
+можем быть уверены в целостности данных при загрузке из дампа, если в проекте
+присутствуют объекты, привязанные к <tt class="docutils literal">ContentType</tt>.</p>
+<p>Решение данной проблемы пришло с релизом Django 1.2: появились так называемые
+&quot;естественные ключи&quot;, представляющие из себя некоторые списки значений
+атрибутов объекта, которые могут однозначно идентифицировать его в базе данных.
+Подробнее про естественные ключи можно почитать <a class="reference external" href="http://djangoadvent.com/1.2/natural-keys/">здесь</a>.</p>
+<p>Теперь выгрузка данных заключается лишь в том, чтобы исключить из дампа
+<tt class="docutils literal">ContentType</tt>,  <tt class="docutils literal">Permission</tt> и <tt class="docutils literal">admin.LogEntry</tt> (в приложении <tt class="docutils literal">admin</tt>
+есть модель <tt class="docutils literal">LogEntry</tt>, которая может содержать ссылки на типы содержимого,
+которых уже нет). Для этого выполняем команды:</p>
+<pre class="literal-block">
+./manage.py dumpdata --natural auth.User auth.Group &gt; auth.json
+./manage.py dumpdata --natural --exclude=contenttypes --exclude=auth --exclude=admin &gt; data.json
+</pre>
+<p>Сначала мы выгружаем данные из моделей <tt class="docutils literal">User</tt> и <tt class="docutils literal">Group</tt>, чтобы в дамп не
+попали <tt class="docutils literal">Permission</tt>, а затем все остальные данные, исключая полностью
+приложения <tt class="docutils literal">contenttypes</tt>, <tt class="docutils literal">auth</tt> и <tt class="docutils literal">admin</tt>. Ключ <tt class="docutils literal"><span class="pre">--natural</span></tt> позволяет
+использовать естественные ключи вместо первичных там, где это возможно.</p>
+<p>Для загрузки, как и прежде, используется <tt class="docutils literal">loaddata</tt>:</p>
+<pre class="literal-block">
+./manage.py loaddata auth.json
+./manage.py loaddata data.json
+</pre>
+
+        </div><!-- /.entry-content -->
+        
+
+</article>
+</section>
+
+        <section id="extras" class="body">
+        
+        
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>, which takes great advantages of <a href="http://python.org">python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+
+
+
+</body>
+</html>
