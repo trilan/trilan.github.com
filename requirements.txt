@@ -4,5 +4,3 @@ pelican==2.8.0
   docutils==0.8.1
   feedgenerator==1.2.1
   pytz==2012b
-
-ghp-import==0.1.8
