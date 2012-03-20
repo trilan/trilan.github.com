@@ -1,0 +1,6 @@
+pelican==2.8.0
+  Jinja2==2.6
+  Pygments==1.5
+  docutils==0.8.1
+  feedgenerator==1.2.1
+  pytz==2012b
