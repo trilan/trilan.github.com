@@ -6,7 +6,7 @@ init:
 	cd output && git reset --quiet HEAD && git checkout --quiet .
 
 html: init
-	pelican -s settings.py content
+	pelican -t theme -s settings.py content
 
 prepare-output: init
 	cd output && git clean -f -d

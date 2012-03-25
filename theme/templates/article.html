@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ article.title }} - {{ super() }}{% endblock %}
+
+{% block breadcrumbs %}{{ super() }} &rsaquo; <a href="{{ SITEURL }}">блог</a>{% endblock %}
+
+{% block content %}
+  <article>
+    <header class="clearfix">
+      <h1 class="class-for-28px">{{ article.title }}</h1>
+      <time datetime="{{ article.date.isoformat() }}" pubdate class="class-for-16px">{{ article.locale_date }}</time>
+    </header>
+    {{ article.content }}
+    <footer class="clearfix">
+      <div class="class-for-16px author">{{ article.author }}</div>
+      <div class="class-for-16px tags">{% for tag in article.tags %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>
+    </footer>
+  </article>
+  <div id="comments">
+    <h1 class="class-for-24px">Комментарии</h1>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_shortname = 'trilandev';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+{% endblock %}

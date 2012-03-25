@@ -1,0 +1,5 @@
+{% extends "articles.html" %}
+
+{% block page_title %}Записи с тегом &laquo;{{ tag.name }}&raquo; - {{ super() }}{% endblock %}
+
+{% block breadcrumbs %}{{ super() }} &rsaquo; <a href="{{ SITEURL }}">блог</a>  &rsaquo; записи с тегом &laquo;{{ tag.name }}&raquo; {% endblock %}
