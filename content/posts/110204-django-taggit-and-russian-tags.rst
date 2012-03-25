@@ -5,6 +5,24 @@ django-taggit и русские теги
 :slug: django-taggit-and-russian-tags
 :tags: django, django-taggit
 :author: Mike Yumatov
+:summary:
+    Существует замечательное приложение django-taggit_, позволяющее быстро и просто
+    добавить теги к объектам на сайте. Использовать его легче некуда::
+
+        from django.db import models
+        from taggit.managers import TaggableManager
+
+        class Article(models.Model):
+            # ...
+            tags = TaggableManager()
+
+    .. _django-taggit: https://github.com/alex/django-taggit
+
+    Но существует небольшая проблема. При сохранении тега приложение генерирует на
+    основе его имени уникальный код, который удобно использовать в URL.
+    К сожалению, по-умолчанию из этого кода удаляются все не-ASCII символы, в том
+    числе и русские. В итоге вместо «мир», «труд», «май» получаем «» (пустая
+    строка), «_1» и «_2», что не очень хорошо.
 
 Существует замечательное приложение django-taggit_, позволяющее быстро и просто
 добавить теги к объектам на сайте. Использовать его легче некуда::
