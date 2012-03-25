@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Записи с тегом &laquo;django&raquo; - trilandev.com</title>
+	<title>Блог - trilandev.com</title>
 	<link rel="shortcut icon" href=".././theme/favicon.ico">
 	<link rel="stylesheet" href=".././theme/css/style.css">
 	
@@ -18,48 +18,9 @@
 <body>
 	<div id="container">
 		<header class="main">
-			<nav class="class-for-20px"><span>trilandev.com &rsaquo; <a href="../.">блог</a>  &rsaquo; записи с тегом &laquo;django&raquo; </span></nav>
+			<nav class="class-for-20px"><span>trilandev.com &rsaquo; <a href="../.">блог</a></span></nav>
 		</header>
 		<section class="main">
-  
-    <article>
-      <header class="clearfix">
-        <h1 class="class-for-28px"><a href=".././2011/09/djangodash-afterword.html">Djangodash: послесловие</a></h1>
-        <time datetime="2011-09-07T00:00:00" pubdate class="class-for-16px">07 сентября 2011</time>
-      </header>
-      <p class="first last">Так получилось, что об участии в <a class="reference external reference external" href="http://djangodash.com">Djangodash</a> мы никому особо и не рассказывали.
-Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
-времяпрепровождение, ну и силы попробовать, конечно, было интересно.</p>
-
-      <footer class="clearfix">
-        <div class="class-for-16px author">Dima Kukushkin</div>
-        
-          <div class="class-for-16px tags">
-            <a href=".././tag/django.html">django</a>, <a href=".././tag/djangodash.html">djangodash</a>, <a href=".././tag/djangolint.html">djangolint</a>
-          </div>
-        
-      </footer>
-    </article>
-  
-    <article>
-      <header class="clearfix">
-        <h1 class="class-for-28px"><a href=".././2011/02/405-and-500-error-templates-in-debug-mode.html">Шаблоны для 404 и 500 ошибок в режиме отладки</a></h1>
-        <time datetime="2011-02-09T00:00:00" pubdate class="class-for-16px">09 февраля 2011</time>
-      </header>
-      <p class="first last">Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
-собственные страницы с полезной информацией. Но иногда очень хочется
-протестировать шаблоны <tt class="docutils literal docutils literal">404.html</tt> и <tt class="docutils literal docutils literal">500.html</tt>. Самый простой способ это
-сделать — добавить в самый низ URLConf проекта следующие строки.</p>
-
-      <footer class="clearfix">
-        <div class="class-for-16px author">Mike Yumatov</div>
-        
-          <div class="class-for-16px tags">
-            <a href=".././tag/django.html">django</a>
-          </div>
-        
-      </footer>
-    </article>
   
     <article>
       <header class="clearfix">
@@ -89,30 +50,18 @@
   
     <article>
       <header class="clearfix">
-        <h1 class="class-for-28px"><a href=".././2011/02/django-taggit-and-russian-tags.html">django-taggit и русские теги</a></h1>
-        <time datetime="2011-02-04T00:00:00" pubdate class="class-for-16px">04 февраля 2011</time>
+        <h1 class="class-for-28px"><a href=".././2011/09/djangodash-afterword.html">Djangodash: послесловие</a></h1>
+        <time datetime="2011-09-07T00:00:00" pubdate class="class-for-16px">07 сентября 2011</time>
       </header>
-      <p class="first">Существует замечательное приложение <a class="reference external reference external" href="https://github.com/alex/django-taggit">django-taggit</a>, позволяющее быстро и просто
-добавить теги к объектам на сайте. Использовать его легче некуда:</p>
-<pre class="literal-block literal-block">
-from django.db import models
-from taggit.managers import TaggableManager
-
-class Article(models.Model):
-    # ...
-    tags = TaggableManager()
-</pre>
-<p class="last">Но существует небольшая проблема. При сохранении тега приложение генерирует на
-основе его имени уникальный код, который удобно использовать в URL.
-К сожалению, по-умолчанию из этого кода удаляются все не-ASCII символы, в том
-числе и русские. В итоге вместо «мир», «труд», «май» получаем «» (пустая
-строка), «_1» и «_2», что не очень хорошо.</p>
+      <p class="first last">Так получилось, что об участии в <a class="reference external reference external" href="http://djangodash.com">Djangodash</a> мы никому особо и не рассказывали.
+Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
+времяпрепровождение, ну и силы попробовать, конечно, было интересно.</p>
 
       <footer class="clearfix">
-        <div class="class-for-16px author">Mike Yumatov</div>
+        <div class="class-for-16px author">Dima Kukushkin</div>
         
           <div class="class-for-16px tags">
-            <a href=".././tag/django.html">django</a>, <a href=".././tag/django-taggit.html">django-taggit</a>
+            <a href=".././tag/django.html">django</a>, <a href=".././tag/djangodash.html">djangodash</a>, <a href=".././tag/djangolint.html">djangolint</a>
           </div>
         
       </footer>
