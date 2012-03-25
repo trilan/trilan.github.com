@@ -13,6 +13,7 @@ prepare-output: init
 	cd output && git rm --quiet -rf *
 
 deploy: prepare-output html
+	cp CNAME output
 	cd output && git add .
 	cd output && if ! git diff-index --quiet HEAD --; then git commit -m "Update blog"; fi
 	cd output && git push origin master
