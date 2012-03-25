@@ -4,7 +4,7 @@
 :date: 2011-02-09
 :slug: django-fixtures
 :tags: django
-:author: Dima Kukushkin
+:author: Дима Кукушкин
 :summary:
     Иногда возникает задача перенести данные с помощью сериализованных дампов,
     генерируемых командой ``./manage.py dumpdata``. При этом в дамп попадают данные

@@ -4,7 +4,7 @@ django-taggit и русские теги
 :date: 2011-02-04
 :slug: django-taggit-and-russian-tags
 :tags: django, django-taggit
-:author: Mike Yumatov
+:author: Миша Юматов
 :summary:
     Существует замечательное приложение django-taggit_, позволяющее быстро и просто
     добавить теги к объектам на сайте. Использовать его легче некуда::

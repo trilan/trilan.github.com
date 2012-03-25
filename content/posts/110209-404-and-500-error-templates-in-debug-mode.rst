@@ -4,7 +4,7 @@
 :date: 2011-02-09
 :slug: 405-and-500-error-templates-in-debug-mode
 :tags: django
-:author: Mike Yumatov
+:author: Миша Юматов
 :summary:
     Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
     собственные страницы с полезной информацией. Но иногда очень хочется

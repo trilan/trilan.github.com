@@ -4,7 +4,7 @@ Djangodash: послесловие
 :date: 2011-09-07
 :slug: djangodash-afterword
 :tags: django, djangodash, djangolint
-:author: Dima Kukushkin
+:author: Дима Кукушкин
 :summary:
     Так получилось, что об участии в Djangodash_ мы никому особо и не рассказывали.
     Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
