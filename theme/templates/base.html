@@ -5,54 +5,54 @@
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{% block page_title %}trilandev.com{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block page_title %}trilandev.com{% endblock %}</title>
   <link href="{{ SITEURL }}/{{ FEED }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} ATOM Feed" />
-	<link rel="shortcut icon" href="{{ SITEURL }}/theme/favicon.ico">
-	<link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
-	{% block feed_urls %}
-	{% endblock %}
-	<script src="{{ SITEURL }}/theme/js/modernizr-1.6.min.js"></script>
+  <link rel="shortcut icon" href="{{ SITEURL }}/theme/favicon.ico">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
+  {% block feed_urls %}
+  {% endblock %}
+  <script src="{{ SITEURL }}/theme/js/modernizr-1.6.min.js"></script>
 </head>
 <body>
-	<div id="container">
-		<header class="main">
-			<nav class="class-for-20px"><span>{% block breadcrumbs %}trilandev.com{% endblock %}</span></nav>
-		</header>
-		<section class="main">{% block content %}{% endblock %}</section>
-		<footer class="main">
-			<p>Powered by <a href="http://pelican.notmyidea.org/">Pelican</a></p>
-		</footer>
-	</div>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
-	<script>!window.jQuery && document.write(unescape('%3Cscript src="{{ STATIC_URL }}js/jquery-1.6.2.js"%3E%3C/script%3E'))</script>
-	{% block js %}{% endblock %}
-	<script>
-		var _gaq = [['_setAccount', 'UA-9614815-3'], ['_trackPageview']];
-		(function(d, t) {
-			var g = d.createElement(t),
-					s = d.getElementsByTagName(t)[0];
-			g.async = true;
-			g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			s.parentNode.insertBefore(g, s);
-		})(document, 'script');
-	</script>
-	<!-- Yandex.Metrika counter -->
-	<div style="display:none;"><script type="text/javascript">
-	(function(w, c) {
-		(w[c] = w[c] || []).push(function() {
-			try {
-				w.yaCounter4372315 = new Ya.Metrika(4372315);
-				 yaCounter4372315.clickmap(true);
-				 yaCounter4372315.trackLinks(true);
-			} catch(e) { }
-		});
-	})(window, 'yandex_metrika_callbacks');
-	</script></div>
-	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-	<noscript><div style="position:absolute"><img src="//mc.yandex.ru/watch/4372315" alt="" /></div></noscript>
-	<!-- /Yandex.Metrika counter -->
+  <div id="container">
+    <header class="main">
+      <nav class="class-for-20px"><span>{% block breadcrumbs %}trilandev.com{% endblock %}</span></nav>
+    </header>
+    <section class="main">{% block content %}{% endblock %}</section>
+    <footer class="main">
+      <p>Powered by <a href="http://pelican.notmyidea.org/">Pelican</a></p>
+    </footer>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="{{ STATIC_URL }}js/jquery-1.6.2.js"%3E%3C/script%3E'))</script>
+  {% block js %}{% endblock %}
+  <script>
+    var _gaq = [['_setAccount', 'UA-9614815-3'], ['_trackPageview']];
+    (function(d, t) {
+      var g = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      g.async = true;
+      g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g, s);
+    })(document, 'script');
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+      try {
+        w.yaCounter4372315 = new Ya.Metrika(4372315);
+         yaCounter4372315.clickmap(true);
+         yaCounter4372315.trackLinks(true);
+      } catch(e) { }
+    });
+  })(window, 'yandex_metrika_callbacks');
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div style="position:absolute"><img src="//mc.yandex.ru/watch/4372315" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
 </body>
 </html>
