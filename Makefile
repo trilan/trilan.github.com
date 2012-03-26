@@ -17,6 +17,7 @@ prepare-output: init
 
 deploy: prepare-output html
 	cp CNAME output
+	cp -r old output/blog
 	cd output && git add .
 	cd output && if ! git diff-index --quiet HEAD --; then git commit -m "Update blog"; fi
 	cd output && git push origin master
