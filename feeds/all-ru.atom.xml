@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>trilandev.com</title><link href="http://trilandev.com" rel="alternate"></link><link href="http://trilandev.com/feeds/all-ru.atom.xml" rel="self"></link><id>http://trilandev.com</id><updated>2012-03-03T00:00:00+04:00</updated><entry><title>Комментарии к коммитам в Git</title><link href="http://trilandev.com/git-comments.html" rel="alternate"></link><updated>2012-03-03T00:00:00+04:00</updated><author><name>Наташа Юматова</name></author><id>http://trilandev.com/git-comments.html</id><summary type="html">&lt;p&gt;Привычка писать качественные сообщения к коммитам делает работу с системой
+<feed xmlns="http://www.w3.org/2005/Atom"><title>trilandev.com</title><link href="http://trilandev.com/" rel="alternate"></link><link href="http://trilandev.com/feeds/all-ru.atom.xml" rel="self"></link><id>http://trilandev.com/</id><updated>2012-03-03T00:00:00+04:00</updated><entry><title>Комментарии к коммитам в Git</title><link href="http://trilandev.com/2012/03/git-comments.html" rel="alternate"></link><updated>2012-03-03T00:00:00+04:00</updated><author><name>Наташа Юматова</name></author><id>tag:trilandev.com,2012-03-03:2012/03/git-comments.html</id><summary type="html">&lt;p&gt;Привычка писать качественные сообщения к коммитам делает работу с системой
 контроля версий намного проще. Для объяснения того, как, на мой взгляд,
 правильно писать однострочные комментарии в Git, я подготовила &lt;a class="reference external" href="http://speakerdeck.com/u/nyumatova/p/commit-messages"&gt;презентацию&lt;/a&gt;.&lt;/p&gt;
 &lt;div style="margin: 0 150px 1.5em;"&gt;
@@ -44,7 +44,7 @@
 имени приложения, в которое были внесены изменения. В итоге комментарии
 оформляются так - app_name: commit message.&lt;/p&gt;
 &lt;p&gt;Вот и все, что я хотела рассказать о комментариях в Git.&lt;/p&gt;
-</summary><category term="git"></category></entry><entry><title>Djangodash: послесловие</title><link href="http://trilandev.com/djangodash-afterword.html" rel="alternate"></link><updated>2011-09-07T00:00:00+04:00</updated><author><name>Дима Кукушкин</name></author><id>http://trilandev.com/djangodash-afterword.html</id><summary type="html">&lt;p&gt;Так получилось, что об участии в &lt;a class="reference external" href="http://djangodash.com"&gt;Djangodash&lt;/a&gt; мы никому особо и не рассказывали.
+</summary><category term="git"></category></entry><entry><title>Djangodash: послесловие</title><link href="http://trilandev.com/2011/09/djangodash-afterword.html" rel="alternate"></link><updated>2011-09-07T00:00:00+04:00</updated><author><name>Дима Кукушкин</name></author><id>tag:trilandev.com,2011-09-07:2011/09/djangodash-afterword.html</id><summary type="html">&lt;p&gt;Так получилось, что об участии в &lt;a class="reference external" href="http://djangodash.com"&gt;Djangodash&lt;/a&gt; мы никому особо и не рассказывали.
 Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
 времяпрепровождение, ну и силы попробовать, конечно, было интересно.&lt;/p&gt;
 &lt;p&gt;Команду планировалось назвать Losers, но что-то пошло не так, и получилось
@@ -99,7 +99,7 @@ AST:&lt;/p&gt;
 на &lt;a class="reference external" href="http://djangolint.com"&gt;djangolint.com&lt;/a&gt;, где сейчас он и находится. Судьям были отправлены
 уведомления о необходимости зайти на сервер и перезапустить Celery.&lt;/p&gt;
 &lt;p&gt;Djangodash мне запомнился тем, что было весело. Ну и победой, конечно :D&lt;/p&gt;
-</summary><category term="django"></category><category term="djangodash"></category><category term="djangolint"></category></entry><entry><title>Шаблоны для 404 и 500 ошибок в режиме отладки</title><link href="http://trilandev.com/405-and-500-error-templates-in-debug-mode.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>http://trilandev.com/405-and-500-error-templates-in-debug-mode.html</id><summary type="html">&lt;p&gt;Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
+</summary><category term="django"></category><category term="djangodash"></category><category term="djangolint"></category></entry><entry><title>Шаблоны для 404 и 500 ошибок в режиме отладки</title><link href="http://trilandev.com/2011/02/405-and-500-error-templates-in-debug-mode.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>tag:trilandev.com,2011-02-09:2011/02/405-and-500-error-templates-in-debug-mode.html</id><summary type="html">&lt;p&gt;Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
 собственные страницы с полезной информацией. Но иногда очень хочется
 протестировать шаблоны &lt;tt class="docutils literal"&gt;404.html&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;500.html&lt;/tt&gt;. Самый простой способ это
 сделать — добавить в самый низ URLConf проекта следующие строки.&lt;/p&gt;
@@ -121,7 +121,7 @@ if settings.DEBUG:
 &lt;/pre&gt;
 &lt;p&gt;Теперь по адресам &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/404&lt;/span&gt;&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/500&lt;/span&gt;&lt;/tt&gt; можно
 смотреть, как выглядят страницы ошибок на вашем сайте :)&lt;/p&gt;
-</summary><category term="django"></category></entry><entry><title>Перенос данных с помощью fixtures</title><link href="http://trilandev.com/django-fixtures.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Дима Кукушкин</name></author><id>http://trilandev.com/django-fixtures.html</id><summary type="html">&lt;p&gt;Иногда возникает задача перенести данные с помощью сериализованных дампов,
+</summary><category term="django"></category></entry><entry><title>Перенос данных с помощью fixtures</title><link href="http://trilandev.com/2011/02/django-fixtures.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Дима Кукушкин</name></author><id>tag:trilandev.com,2011-02-09:2011/02/django-fixtures.html</id><summary type="html">&lt;p&gt;Иногда возникает задача перенести данные с помощью сериализованных дампов,
 генерируемых командой &lt;tt class="docutils literal"&gt;./manage.py dumpdata&lt;/tt&gt;. При этом в дамп попадают данные
 из &lt;tt class="docutils literal"&gt;auth.models.Permission&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;contenttypes.models.ContentType&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Во время синхронизации с помощью команды &lt;tt class="docutils literal"&gt;syncdb&lt;/tt&gt;, после создания таблиц и
@@ -152,7 +152,7 @@ if settings.DEBUG:
 ./manage.py loaddata auth.json
 ./manage.py loaddata data.json
 &lt;/pre&gt;
-</summary><category term="django"></category></entry><entry><title>django-taggit и русские теги</title><link href="http://trilandev.com/django-taggit-and-russian-tags.html" rel="alternate"></link><updated>2011-02-04T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>http://trilandev.com/django-taggit-and-russian-tags.html</id><summary type="html">&lt;p&gt;Существует замечательное приложение &lt;a class="reference external" href="https://github.com/alex/django-taggit"&gt;django-taggit&lt;/a&gt;, позволяющее быстро и просто
+</summary><category term="django"></category></entry><entry><title>django-taggit и русские теги</title><link href="http://trilandev.com/2011/02/django-taggit-and-russian-tags.html" rel="alternate"></link><updated>2011-02-04T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>tag:trilandev.com,2011-02-04:2011/02/django-taggit-and-russian-tags.html</id><summary type="html">&lt;p&gt;Существует замечательное приложение &lt;a class="reference external" href="https://github.com/alex/django-taggit"&gt;django-taggit&lt;/a&gt;, позволяющее быстро и просто
 добавить теги к объектам на сайте. Использовать его легче некуда:&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 from django.db import models
