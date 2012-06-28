@@ -35,20 +35,24 @@
 атрибутов объекта, которые могут однозначно идентифицировать его в базе данных.
 Подробнее про естественные ключи можно почитать `здесь`_.
 
-.. _здесь: http://djangoadvent.com/1.2/natural-keys/
+.. _здесь: https://docs.djangoproject.com/en/1.4/topics/serialization/#natural-keys
 
 Теперь выгрузка данных заключается лишь в том, чтобы исключить из дампа
-``ContentType``,  ``Permission`` и ``admin.LogEntry`` (в приложении ``admin``
+``ContentType``,  ``Permission``, ``admin.LogEntry`` (в приложении ``admin``
 есть модель ``LogEntry``, которая может содержать ссылки на типы содержимого,
-которых уже нет). Для этого выполняем команды::
+которых уже нет) и сессии (если для хранения сессий выбран бакенд
+``django.contrib.sessions.backends.db`` - модель ``Session`` тоже стоит исключить.
+Для этого выполняем команды::
 
     ./manage.py dumpdata --natural auth.User auth.Group > auth.json
-    ./manage.py dumpdata --natural --exclude=contenttypes --exclude=auth --exclude=admin > data.json
+    ./manage.py dumpdata --natural --exclude=contenttypes \
+            --exclude=auth --exclude=admin --exclude=sessions > data.json
 
 Сначала мы выгружаем данные из моделей ``User`` и ``Group``, чтобы в дамп не
 попали ``Permission``, а затем все остальные данные, исключая полностью
-приложения ``contenttypes``, ``auth`` и ``admin``. Ключ ``--natural`` позволяет
-использовать естественные ключи вместо первичных там, где это возможно.
+приложения ``contenttypes``, ``auth``, ``admin`` и ``sessions``.
+Ключ ``--natural`` позволяет использовать естественные ключи вместо
+первичных там, где это возможно.
 
 Для загрузки, как и прежде, используется ``loaddata``::
 
