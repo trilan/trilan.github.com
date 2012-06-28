@@ -40,19 +40,23 @@
 <p>Решение данной проблемы пришло с релизом Django 1.2: появились так называемые
 &quot;естественные ключи&quot;, представляющие из себя некоторые списки значений
 атрибутов объекта, которые могут однозначно идентифицировать его в базе данных.
-Подробнее про естественные ключи можно почитать <a class="reference external" href="http://djangoadvent.com/1.2/natural-keys/">здесь</a>.</p>
+Подробнее про естественные ключи можно почитать <a class="reference external" href="https://docs.djangoproject.com/en/1.4/topics/serialization/#natural-keys">здесь</a>.</p>
 <p>Теперь выгрузка данных заключается лишь в том, чтобы исключить из дампа
-<tt class="docutils literal">ContentType</tt>,  <tt class="docutils literal">Permission</tt> и <tt class="docutils literal">admin.LogEntry</tt> (в приложении <tt class="docutils literal">admin</tt>
+<tt class="docutils literal">ContentType</tt>,  <tt class="docutils literal">Permission</tt>, <tt class="docutils literal">admin.LogEntry</tt> (в приложении <tt class="docutils literal">admin</tt>
 есть модель <tt class="docutils literal">LogEntry</tt>, которая может содержать ссылки на типы содержимого,
-которых уже нет). Для этого выполняем команды:</p>
+которых уже нет) и сессии (если для хранения сессий выбран бакенд
+<tt class="docutils literal">django.contrib.sessions.backends.db</tt> - модель <tt class="docutils literal">Session</tt> тоже стоит исключить).
+Для этого выполняем команды:</p>
 <pre class="literal-block">
 ./manage.py dumpdata --natural auth.User auth.Group &gt; auth.json
-./manage.py dumpdata --natural --exclude=contenttypes --exclude=auth --exclude=admin &gt; data.json
+./manage.py dumpdata --natural --exclude=contenttypes \
+        --exclude=auth --exclude=admin --exclude=sessions &gt; data.json
 </pre>
 <p>Сначала мы выгружаем данные из моделей <tt class="docutils literal">User</tt> и <tt class="docutils literal">Group</tt>, чтобы в дамп не
 попали <tt class="docutils literal">Permission</tt>, а затем все остальные данные, исключая полностью
-приложения <tt class="docutils literal">contenttypes</tt>, <tt class="docutils literal">auth</tt> и <tt class="docutils literal">admin</tt>. Ключ <tt class="docutils literal"><span class="pre">--natural</span></tt> позволяет
-использовать естественные ключи вместо первичных там, где это возможно.</p>
+приложения <tt class="docutils literal">contenttypes</tt>, <tt class="docutils literal">auth</tt>, <tt class="docutils literal">admin</tt> и <tt class="docutils literal">sessions</tt>.
+Ключ <tt class="docutils literal"><span class="pre">--natural</span></tt> позволяет использовать естественные ключи вместо
+первичных там, где это возможно.</p>
 <p>Для загрузки, как и прежде, используется <tt class="docutils literal">loaddata</tt>:</p>
 <pre class="literal-block">
 ./manage.py loaddata auth.json
