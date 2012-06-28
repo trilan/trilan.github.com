@@ -41,7 +41,7 @@
 ``ContentType``,  ``Permission``, ``admin.LogEntry`` (в приложении ``admin``
 есть модель ``LogEntry``, которая может содержать ссылки на типы содержимого,
 которых уже нет) и сессии (если для хранения сессий выбран бакенд
-``django.contrib.sessions.backends.db`` - модель ``Session`` тоже стоит исключить.
+``django.contrib.sessions.backends.db`` - модель ``Session`` тоже стоит исключить).
 Для этого выполняем команды::
 
     ./manage.py dumpdata --natural auth.User auth.Group > auth.json
