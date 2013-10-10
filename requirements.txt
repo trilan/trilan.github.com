@@ -1,4 +1,4 @@
--e git+https://github.com/ametaireau/pelican.git@0d9298313ffd453c9d9d6f21e228436a72f90d13#egg=pelican
+pelican==3.0.1
   Jinja2==2.6
   Pygments==1.5
   docutils==0.8.1
