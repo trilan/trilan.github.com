@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>trilandev.com</title><link href="http://trilandev.com" rel="alternate"></link><link href="http://trilandev.com/feeds/posts.atom.xml" rel="self"></link><id>http://trilandev.com</id><updated>2012-03-03T00:00:00+04:00</updated><entry><title>Комментарии к коммитам в Git</title><link href="http://trilandev.com/2012/03/git-comments.html" rel="alternate"></link><updated>2012-03-03T00:00:00+04:00</updated><author><name>Наташа Юматова</name></author><id>http://trilandev.com/2012/03/git-comments.html</id><summary type="html">&lt;p&gt;Привычка писать качественные сообщения к коммитам делает работу с системой
+<feed xmlns="http://www.w3.org/2005/Atom"><title>trilandev.com</title><link href="http://trilandev.com/" rel="alternate"></link><link href="http://trilandev.com/feeds/posts.atom.xml" rel="self"></link><id>http://trilandev.com/</id><updated>2013-10-10T00:00:00+04:00</updated><entry><title>Jenkins и Docker</title><link href="http://trilandev.com/2013/10/jenkins-docker.html" rel="alternate"></link><updated>2013-10-10T00:00:00+04:00</updated><author><name>Миша Юматов</name></author><id>tag:trilandev.com,2013-10-10:2013/10/jenkins-docker.html</id><summary type="html">&lt;p&gt;Для непрерывного тестирования проектов мы используем &lt;a class="reference external" href="http://jenkins-ci.org/"&gt;Jenkins&lt;/a&gt; — инструмент,
+который не нуждается в представлении. У нас Jenkins  проверяет все известные
+ему репозитории на наличие новых коммитов каждые 5 минут. Если находит их,
+запускает полный набор тестов проекта и собирает метрики кода.&lt;/p&gt;
+&lt;p&gt;Убежден, что тесты на сервере непрерывной интеграции должны запускаться в
+окружении, максимально приближенном к боевому. Например, если предполагается на
+production'е использовать PostgreSQL, то и для тестов необходимо использовать
+его же (а не SQLite, потому что быстро). Это не самая простая задача, так как
+необходимо заботиться об изоляции сборок друг от друга. Новые сборки должны
+получать чистую БД, без мусора, который мог остаться от предыдущих, а
+параллельные сборки не должны мешать друг другу.&lt;/p&gt;
+&lt;p&gt;Вот уже месяц с этой задачей нам помогает успешно справляться &lt;a class="reference external" href="http://www.docker.io/"&gt;Docker&lt;/a&gt; —
+инструмент для работы с легковесными изолированными контейнерами. Запуск таких
+контейнеров практически ничего не стоит по времени и ресурсам, в отличие от
+запуска виртуальных машин. У каждого контейнера свое пространство процессов и
+свой сетевой стек, они изолированы друг от друга.&lt;/p&gt;
+&lt;p&gt;Каждая сборка в Jenkins'е создает новый контейнер на основе заранее
+подготовленного образа. По завершении сборки, не зависимо от ее результата,
+контейнер уничтожается. Используемый для сборок образ содержит все необходимые
+сервисы (PostgreSQL, MySQL, Redis и т.д.), которые остается запустить в самом
+начале тестирования.&lt;/p&gt;
+&lt;p&gt;Подготовить образ для тестов можно с помощью специального файла &lt;a class="reference external" href="http://docs.docker.io/en/latest/use/builder/"&gt;Dockerfile&lt;/a&gt;,
+очень похожего на обычный shell-скрипт. Например (укороченный вариант):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+FROM ubuntu:precise
+
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y redis-server
+RUN apt-get install -y postgresql
+
+WORKDIR /mnt/workspace
+CMD make jenkins
+&lt;/pre&gt;
+&lt;p&gt;Собранный по такому скрипту образ будет содержать Ubuntu 12.04 с установленными
+сервисами Redis и PostgreSQL. В последних двух строчках указано, что сразу же
+после создания контейнера на основе этого образа необходимо выполнить команду
+&lt;tt class="docutils literal"&gt;make jenkins&lt;/tt&gt; в директории &lt;tt class="docutils literal"&gt;/mnt/workspace&lt;/tt&gt;. Подразумевается, что
+&lt;tt class="docutils literal"&gt;/mnt/workspace&lt;/tt&gt; содержит исходный код проекта. В корне этой директории
+должен находиться файл &lt;a class="reference external" href="http://www.gnu.org/software/make/"&gt;Makefile&lt;/a&gt; с определенной целью &lt;tt class="docutils literal"&gt;jenkins&lt;/tt&gt;. Например:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+jenkins:
+    service start postgresql
+    service start redis-server
+    pip install -r requirements.txt
+    python manage.py jenkins
+&lt;/pre&gt;
+&lt;p&gt;Что же касается самого Jenkins'а, то он у нас для каждой сборки запускает такой
+скрипт:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+#!/bin/bash
+
+# Создаем контейнер и монтируем рабочую директорию сборки в директорию
+# /mnt/workspace контейнера. В контейнере запускается команда make jenkins
+CONTAINER=$(docker run -d -v $WORKSPACE:/mnt/workspace test)
+
+# Подкючаемся к выводу команды make jenkins для трансляции его в лог сборки
+docker attach $CONTAINER
+
+# Ждем, пока завершится выполнение тестов, и запоминаем код завершения
+# команды make jenkins
+RC=$(docker wait $CONTAINER)
+
+# Удаляем контейнер
+docker rm $CONTAINER &amp;gt; /dev/null
+
+# Завершаем работу скрипта с тем же кодом, с которым завершилось
+# выполнение тестов
+exit $RC
+&lt;/pre&gt;
+&lt;p&gt;Раньше вопрос о поддержке новых сервисов на сервере непрерывной интеграции
+заканчивался ничем из-за сложности внедрения. Теперь же это практически ничего
+не стоит: достаточно добавить нужные строчки в Dockerfile и пересобрать образ.&lt;/p&gt;
+</summary><category term="jenkins"></category><category term="docker"></category></entry><entry><title>Комментарии к коммитам в Git</title><link href="http://trilandev.com/2012/03/git-comments.html" rel="alternate"></link><updated>2012-03-03T00:00:00+04:00</updated><author><name>Наташа Юматова</name></author><id>tag:trilandev.com,2012-03-03:2012/03/git-comments.html</id><summary type="html">&lt;p&gt;Привычка писать качественные сообщения к коммитам делает работу с системой
 контроля версий намного проще. Для объяснения того, как, на мой взгляд,
 правильно писать однострочные комментарии в Git, я подготовила &lt;a class="reference external" href="http://speakerdeck.com/u/nyumatova/p/commit-messages"&gt;презентацию&lt;/a&gt;.&lt;/p&gt;
 &lt;div style="margin: 0 150px 1.5em;"&gt;
@@ -44,7 +117,7 @@
 имени приложения, в которое были внесены изменения. В итоге комментарии
 оформляются так - app_name: commit message.&lt;/p&gt;
 &lt;p&gt;Вот и все, что я хотела рассказать о комментариях в Git.&lt;/p&gt;
-</summary><category term="git"></category></entry><entry><title>Djangodash: послесловие</title><link href="http://trilandev.com/2011/09/djangodash-afterword.html" rel="alternate"></link><updated>2011-09-07T00:00:00+04:00</updated><author><name>Дима Кукушкин</name></author><id>http://trilandev.com/2011/09/djangodash-afterword.html</id><summary type="html">&lt;p&gt;Так получилось, что об участии в &lt;a class="reference external" href="http://djangodash.com"&gt;Djangodash&lt;/a&gt; мы никому особо и не рассказывали.
+</summary><category term="git"></category></entry><entry><title>Djangodash: послесловие</title><link href="http://trilandev.com/2011/09/djangodash-afterword.html" rel="alternate"></link><updated>2011-09-07T00:00:00+04:00</updated><author><name>Дима Кукушкин</name></author><id>tag:trilandev.com,2011-09-07:2011/09/djangodash-afterword.html</id><summary type="html">&lt;p&gt;Так получилось, что об участии в &lt;a class="reference external" href="http://djangodash.com"&gt;Djangodash&lt;/a&gt; мы никому особо и не рассказывали.
 Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
 времяпрепровождение, ну и силы попробовать, конечно, было интересно.&lt;/p&gt;
 &lt;p&gt;Команду планировалось назвать Losers, но что-то пошло не так, и получилось
@@ -99,7 +172,7 @@ AST:&lt;/p&gt;
 на &lt;a class="reference external" href="http://djangolint.com"&gt;djangolint.com&lt;/a&gt;, где сейчас он и находится. Судьям были отправлены
 уведомления о необходимости зайти на сервер и перезапустить Celery.&lt;/p&gt;
 &lt;p&gt;Djangodash мне запомнился тем, что было весело. Ну и победой, конечно :D&lt;/p&gt;
-</summary><category term="django"></category><category term="djangodash"></category><category term="djangolint"></category></entry><entry><title>Шаблоны для 404 и 500 ошибок в режиме отладки</title><link href="http://trilandev.com/2011/02/405-and-500-error-templates-in-debug-mode.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>http://trilandev.com/2011/02/405-and-500-error-templates-in-debug-mode.html</id><summary type="html">&lt;p&gt;Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
+</summary><category term="django"></category><category term="djangodash"></category><category term="djangolint"></category></entry><entry><title>Шаблоны для 404 и 500 ошибок в режиме отладки</title><link href="http://trilandev.com/2011/02/405-and-500-error-templates-in-debug-mode.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>tag:trilandev.com,2011-02-09:2011/02/405-and-500-error-templates-in-debug-mode.html</id><summary type="html">&lt;p&gt;Как известно, в режиме отладки Django по случаю 404 и 500 ошибок отдает нам
 собственные страницы с полезной информацией. Но иногда очень хочется
 протестировать шаблоны &lt;tt class="docutils literal"&gt;404.html&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;500.html&lt;/tt&gt;. Самый простой способ это
 сделать — добавить в самый низ URLConf проекта следующие строки.&lt;/p&gt;
@@ -121,7 +194,7 @@ if settings.DEBUG:
 &lt;/pre&gt;
 &lt;p&gt;Теперь по адресам &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/404&lt;/span&gt;&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;http://example.com/500&lt;/span&gt;&lt;/tt&gt; можно
 смотреть, как выглядят страницы ошибок на вашем сайте :)&lt;/p&gt;
-</summary><category term="django"></category></entry><entry><title>Перенос данных с помощью fixtures</title><link href="http://trilandev.com/2011/02/django-fixtures.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Дима Кукушкин</name></author><id>http://trilandev.com/2011/02/django-fixtures.html</id><summary type="html">&lt;p&gt;Иногда возникает задача перенести данные с помощью сериализованных дампов,
+</summary><category term="django"></category></entry><entry><title>Перенос данных с помощью fixtures</title><link href="http://trilandev.com/2011/02/django-fixtures.html" rel="alternate"></link><updated>2011-02-09T00:00:00+03:00</updated><author><name>Дима Кукушкин</name></author><id>tag:trilandev.com,2011-02-09:2011/02/django-fixtures.html</id><summary type="html">&lt;p&gt;Иногда возникает задача перенести данные с помощью сериализованных дампов,
 генерируемых командой &lt;tt class="docutils literal"&gt;./manage.py dumpdata&lt;/tt&gt;. При этом в дамп попадают данные
 из &lt;tt class="docutils literal"&gt;auth.models.Permission&lt;/tt&gt; и &lt;tt class="docutils literal"&gt;contenttypes.models.ContentType&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Во время синхронизации с помощью команды &lt;tt class="docutils literal"&gt;syncdb&lt;/tt&gt;, после создания таблиц и
@@ -156,7 +229,7 @@ if settings.DEBUG:
 ./manage.py loaddata auth.json
 ./manage.py loaddata data.json
 &lt;/pre&gt;
-</summary><category term="django"></category></entry><entry><title>django-taggit и русские теги</title><link href="http://trilandev.com/2011/02/django-taggit-and-russian-tags.html" rel="alternate"></link><updated>2011-02-04T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>http://trilandev.com/2011/02/django-taggit-and-russian-tags.html</id><summary type="html">&lt;p&gt;Существует замечательное приложение &lt;a class="reference external" href="https://github.com/alex/django-taggit"&gt;django-taggit&lt;/a&gt;, позволяющее быстро и просто
+</summary><category term="django"></category></entry><entry><title>django-taggit и русские теги</title><link href="http://trilandev.com/2011/02/django-taggit-and-russian-tags.html" rel="alternate"></link><updated>2011-02-04T00:00:00+03:00</updated><author><name>Миша Юматов</name></author><id>tag:trilandev.com,2011-02-04:2011/02/django-taggit-and-russian-tags.html</id><summary type="html">&lt;p&gt;Существует замечательное приложение &lt;a class="reference external" href="https://github.com/alex/django-taggit"&gt;django-taggit&lt;/a&gt;, позволяющее быстро и просто
 добавить теги к объектам на сайте. Использовать его легче некуда:&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 from django.db import models

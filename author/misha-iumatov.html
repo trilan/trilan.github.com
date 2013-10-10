@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Записи с тегом &laquo;django&raquo; - trilandev.com</title>
+  <title>Блог - trilandev.com</title>
   <link href=".././" type="application/atom+xml" rel="alternate" title="trilandev.com ATOM Feed" />
   <link rel="shortcut icon" href=".././theme/favicon.ico">
   <link rel="stylesheet" href=".././theme/css/style.css">
@@ -19,28 +19,9 @@
 <body>
   <div id="container">
     <header class="main">
-      <nav class="class-for-20px"><span>trilandev.com &rsaquo; <a href="../.">блог</a>  &rsaquo; записи с тегом &laquo;django&raquo; </span></nav>
+      <nav class="class-for-20px"><span>trilandev.com &rsaquo; <a href="../.">блог</a></span></nav>
     </header>
     <section class="main">
-  
-    <article>
-      <header class="clearfix">
-        <h1 class="class-for-28px"><a href=".././2011/09/djangodash-afterword.html">Djangodash: послесловие</a></h1>
-        <time datetime="2011-09-07T00:00:00" pubdate class="class-for-16px">07 сентября 2011</time>
-      </header>
-      <p class="first last">Так получилось, что об участии в <a class="reference external reference external" href="http://djangodash.com">Djangodash</a> мы никому особо и не рассказывали.
-Лично я, да и Миша с Наташей, думаю, расценивали этот конкурс, как веселое
-времяпрепровождение, ну и силы попробовать, конечно, было интересно.</p>
-
-      <footer class="clearfix">
-        <div class="class-for-16px author">Дима Кукушкин</div>
-        
-          <div class="class-for-16px tags">
-            <a href=".././tag/django.html">django</a>, <a href=".././tag/djangodash.html">djangodash</a>, <a href=".././tag/djangolint.html">djangolint</a>
-          </div>
-        
-      </footer>
-    </article>
   
     <article>
       <header class="clearfix">
@@ -54,32 +35,6 @@
 
       <footer class="clearfix">
         <div class="class-for-16px author">Миша Юматов</div>
-        
-          <div class="class-for-16px tags">
-            <a href=".././tag/django.html">django</a>
-          </div>
-        
-      </footer>
-    </article>
-  
-    <article>
-      <header class="clearfix">
-        <h1 class="class-for-28px"><a href=".././2011/02/django-fixtures.html">Перенос данных с помощью fixtures</a></h1>
-        <time datetime="2011-02-09T00:00:00" pubdate class="class-for-16px">09 февраля 2011</time>
-      </header>
-      <p class="first">Иногда возникает задача перенести данные с помощью сериализованных дампов,
-генерируемых командой <tt class="docutils literal docutils literal">./manage.py dumpdata</tt>. При этом в дамп попадают данные
-из <tt class="docutils literal docutils literal">auth.models.Permission</tt> и <tt class="docutils literal docutils literal">contenttypes.models.ContentType</tt>.</p>
-<p class="last">Во время синхронизации с помощью команды <tt class="docutils literal docutils literal">syncdb</tt>, после создания таблиц и
-прочей информации о схеме БД также происходит срабатывание хэндлеров,
-подключенных к сигналу <tt class="docutils literal docutils literal">post_syncdb</tt>: в этот момент и создаются contenttypes,
-а также permissions. При этом первичные ключи для них генерируются в реальном
-времени в самой БД и нет возможности на это как-то повлиять. Поэтому мы не
-можем быть уверены в целостности данных при загрузке из дампа, если в проекте
-присутствуют объекты, привязанные к <tt class="docutils literal docutils literal">ContentType</tt>.</p>
-
-      <footer class="clearfix">
-        <div class="class-for-16px author">Дима Кукушкин</div>
         
           <div class="class-for-16px tags">
             <a href=".././tag/django.html">django</a>
@@ -114,6 +69,26 @@ class Article(models.Model):
         
           <div class="class-for-16px tags">
             <a href=".././tag/django.html">django</a>, <a href=".././tag/django-taggit.html">django-taggit</a>
+          </div>
+        
+      </footer>
+    </article>
+  
+    <article>
+      <header class="clearfix">
+        <h1 class="class-for-28px"><a href=".././2013/10/jenkins-docker.html">Jenkins и Docker</a></h1>
+        <time datetime="2013-10-10T00:00:00" pubdate class="class-for-16px">10 октября 2013</time>
+      </header>
+      <p class="first last">Для непрерывного тестирования проектов мы используем <a class="reference external reference external" href="http://jenkins-ci.org/">Jenkins</a> — инструмент,
+который не нуждается в представлении. У нас Jenkins  проверяет все
+известные ему репозитории на наличие новых коммитов каждые 5 минут. Если
+находит их, запускает полный набор тестов проекта и собирает метрики кода.</p>
+
+      <footer class="clearfix">
+        <div class="class-for-16px author">Миша Юматов</div>
+        
+          <div class="class-for-16px tags">
+            <a href=".././tag/jenkins.html">jenkins</a>, <a href=".././tag/docker.html">docker</a>
           </div>
         
       </footer>

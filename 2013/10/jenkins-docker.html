@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jenkins и Docker - trilandev.com</title>
+  <link href="../.././" type="application/atom+xml" rel="alternate" title="trilandev.com ATOM Feed" />
+  <link rel="shortcut icon" href="../.././theme/favicon.ico">
+  <link rel="stylesheet" href="../.././theme/css/style.css">
+  
+  
+  <script src="../.././theme/js/modernizr-1.6.min.js"></script>
+</head>
+<body>
+  <div id="container">
+    <header class="main">
+      <nav class="class-for-20px"><span>trilandev.com &rsaquo; <a href="../../.">блог</a></span></nav>
+    </header>
+    <section class="main">
+  <article>
+    <header class="clearfix">
+      <h1 class="class-for-28px">Jenkins и Docker</h1>
+      <time datetime="2013-10-10T00:00:00" pubdate class="class-for-16px">10 октября 2013</time>
+    </header>
+    <p>Для непрерывного тестирования проектов мы используем <a class="reference external" href="http://jenkins-ci.org/">Jenkins</a> — инструмент,
+который не нуждается в представлении. У нас Jenkins  проверяет все известные
+ему репозитории на наличие новых коммитов каждые 5 минут. Если находит их,
+запускает полный набор тестов проекта и собирает метрики кода.</p>
+<p>Убежден, что тесты на сервере непрерывной интеграции должны запускаться в
+окружении, максимально приближенном к боевому. Например, если предполагается на
+production'е использовать PostgreSQL, то и для тестов необходимо использовать
+его же (а не SQLite, потому что быстро). Это не самая простая задача, так как
+необходимо заботиться об изоляции сборок друг от друга. Новые сборки должны
+получать чистую БД, без мусора, который мог остаться от предыдущих, а
+параллельные сборки не должны мешать друг другу.</p>
+<p>Вот уже месяц с этой задачей нам помогает успешно справляться <a class="reference external" href="http://www.docker.io/">Docker</a> —
+инструмент для работы с легковесными изолированными контейнерами. Запуск таких
+контейнеров практически ничего не стоит по времени и ресурсам, в отличие от
+запуска виртуальных машин. У каждого контейнера свое пространство процессов и
+свой сетевой стек, они изолированы друг от друга.</p>
+<p>Каждая сборка в Jenkins'е создает новый контейнер на основе заранее
+подготовленного образа. По завершении сборки, не зависимо от ее результата,
+контейнер уничтожается. Используемый для сборок образ содержит все необходимые
+сервисы (PostgreSQL, MySQL, Redis и т.д.), которые остается запустить в самом
+начале тестирования.</p>
+<p>Подготовить образ для тестов можно с помощью специального файла <a class="reference external" href="http://docs.docker.io/en/latest/use/builder/">Dockerfile</a>,
+очень похожего на обычный shell-скрипт. Например (укороченный вариант):</p>
+<pre class="literal-block">
+FROM ubuntu:precise
+
+RUN apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y redis-server
+RUN apt-get install -y postgresql
+
+WORKDIR /mnt/workspace
+CMD make jenkins
+</pre>
+<p>Собранный по такому скрипту образ будет содержать Ubuntu 12.04 с установленными
+сервисами Redis и PostgreSQL. В последних двух строчках указано, что сразу же
+после создания контейнера на основе этого образа необходимо выполнить команду
+<tt class="docutils literal">make jenkins</tt> в директории <tt class="docutils literal">/mnt/workspace</tt>. Подразумевается, что
+<tt class="docutils literal">/mnt/workspace</tt> содержит исходный код проекта. В корне этой директории
+должен находиться файл <a class="reference external" href="http://www.gnu.org/software/make/">Makefile</a> с определенной целью <tt class="docutils literal">jenkins</tt>. Например:</p>
+<pre class="literal-block">
+jenkins:
+    service start postgresql
+    service start redis-server
+    pip install -r requirements.txt
+    python manage.py jenkins
+</pre>
+<p>Что же касается самого Jenkins'а, то он у нас для каждой сборки запускает такой
+скрипт:</p>
+<pre class="literal-block">
+#!/bin/bash
+
+# Создаем контейнер и монтируем рабочую директорию сборки в директорию
+# /mnt/workspace контейнера. В контейнере запускается команда make jenkins
+CONTAINER=$(docker run -d -v $WORKSPACE:/mnt/workspace test)
+
+# Подкючаемся к выводу команды make jenkins для трансляции его в лог сборки
+docker attach $CONTAINER
+
+# Ждем, пока завершится выполнение тестов, и запоминаем код завершения
+# команды make jenkins
+RC=$(docker wait $CONTAINER)
+
+# Удаляем контейнер
+docker rm $CONTAINER &gt; /dev/null
+
+# Завершаем работу скрипта с тем же кодом, с которым завершилось
+# выполнение тестов
+exit $RC
+</pre>
+<p>Раньше вопрос о поддержке новых сервисов на сервере непрерывной интеграции
+заканчивался ничем из-за сложности внедрения. Теперь же это практически ничего
+не стоит: достаточно добавить нужные строчки в Dockerfile и пересобрать образ.</p>
+
+    <footer class="clearfix">
+      <div class="class-for-16px author">Миша Юматов</div>
+      <div class="class-for-16px tags"><a href="../.././tag/jenkins.html">jenkins</a>, <a href="../.././tag/docker.html">docker</a></div>
+    </footer>
+  </article>
+  <div id="comments">
+    <h1 class="class-for-24px">Комментарии</h1>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_shortname = 'trilandev';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+    <footer class="main">
+      <p>Powered by <a href="http://pelican.notmyidea.org/">Pelican</a></p>
+    </footer>
+  </div>
+  <script>
+    var _gaq = [['_setAccount', 'UA-9614815-3'], ['_trackPageview']];
+    (function(d, t) {
+      var g = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      g.async = true;
+      g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g, s);
+    })(document, 'script');
+  </script>
+</body>
+</html>
